@@ -8,97 +8,97 @@
 // You should NOT make any changes in this file as it will be overwritten.
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
-import { Route as rootRouteImport } from "./routes/__root";
-import { Route as IndexRouteImport } from "./routes/index";
-import { Route as CalendarIndexRouteImport } from "./routes/calendar.index";
-import { Route as CalendarMonthRouteImport } from "./routes/calendar.$month";
-import { Route as DayDateRouteImport } from "./routes/day.$date";
+import { Route as rootRouteImport } from './routes/__root'
+import { Route as IndexRouteImport } from './routes/index'
+import { Route as CalendarIndexRouteImport } from './routes/calendar.index'
+import { Route as CalendarMonthRouteImport } from './routes/calendar.$month'
+import { Route as DayDateRouteImport } from './routes/day.$date'
 
 const IndexRoute = IndexRouteImport.update({
-  id: "/",
-  path: "/",
+  id: '/',
+  path: '/',
   getParentRoute: () => rootRouteImport,
-} as any);
+} as any)
 const CalendarIndexRoute = CalendarIndexRouteImport.update({
-  id: "/calendar/",
-  path: "/calendar/",
+  id: '/calendar/',
+  path: '/calendar/',
   getParentRoute: () => rootRouteImport,
-} as any);
+} as any)
 const CalendarMonthRoute = CalendarMonthRouteImport.update({
-  id: "/calendar/$month",
-  path: "/calendar/$month",
+  id: '/calendar/$month',
+  path: '/calendar/$month',
   getParentRoute: () => rootRouteImport,
-} as any);
+} as any)
 const DayDateRoute = DayDateRouteImport.update({
-  id: "/day/$date",
-  path: "/day/$date",
+  id: '/day/$date',
+  path: '/day/$date',
   getParentRoute: () => rootRouteImport,
-} as any);
+} as any)
 
 export interface FileRoutesByFullPath {
-  "/": typeof IndexRoute;
-  "/calendar/$month": typeof CalendarMonthRoute;
-  "/day/$date": typeof DayDateRoute;
-  "/calendar/": typeof CalendarIndexRoute;
+  '/': typeof IndexRoute
+  '/calendar/$month': typeof CalendarMonthRoute
+  '/day/$date': typeof DayDateRoute
+  '/calendar/': typeof CalendarIndexRoute
 }
 export interface FileRoutesByTo {
-  "/": typeof IndexRoute;
-  "/calendar/$month": typeof CalendarMonthRoute;
-  "/day/$date": typeof DayDateRoute;
-  "/calendar": typeof CalendarIndexRoute;
+  '/': typeof IndexRoute
+  '/calendar/$month': typeof CalendarMonthRoute
+  '/day/$date': typeof DayDateRoute
+  '/calendar': typeof CalendarIndexRoute
 }
 export interface FileRoutesById {
-  __root__: typeof rootRouteImport;
-  "/": typeof IndexRoute;
-  "/calendar/$month": typeof CalendarMonthRoute;
-  "/day/$date": typeof DayDateRoute;
-  "/calendar/": typeof CalendarIndexRoute;
+  __root__: typeof rootRouteImport
+  '/': typeof IndexRoute
+  '/calendar/$month': typeof CalendarMonthRoute
+  '/day/$date': typeof DayDateRoute
+  '/calendar/': typeof CalendarIndexRoute
 }
 export interface FileRouteTypes {
-  fileRoutesByFullPath: FileRoutesByFullPath;
-  fullPaths: "/" | "/calendar/$month" | "/day/$date" | "/calendar/";
-  fileRoutesByTo: FileRoutesByTo;
-  to: "/" | "/calendar/$month" | "/day/$date" | "/calendar";
-  id: "__root__" | "/" | "/calendar/$month" | "/day/$date" | "/calendar/";
-  fileRoutesById: FileRoutesById;
+  fileRoutesByFullPath: FileRoutesByFullPath
+  fullPaths: '/' | '/calendar/$month' | '/day/$date' | '/calendar/'
+  fileRoutesByTo: FileRoutesByTo
+  to: '/' | '/calendar/$month' | '/day/$date' | '/calendar'
+  id: '__root__' | '/' | '/calendar/$month' | '/day/$date' | '/calendar/'
+  fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
-  IndexRoute: typeof IndexRoute;
-  CalendarMonthRoute: typeof CalendarMonthRoute;
-  DayDateRoute: typeof DayDateRoute;
-  CalendarIndexRoute: typeof CalendarIndexRoute;
+  IndexRoute: typeof IndexRoute
+  CalendarMonthRoute: typeof CalendarMonthRoute
+  DayDateRoute: typeof DayDateRoute
+  CalendarIndexRoute: typeof CalendarIndexRoute
 }
 
-declare module "@tanstack/react-router" {
+declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    "/": {
-      id: "/";
-      path: "/";
-      fullPath: "/";
-      preLoaderRoute: typeof IndexRouteImport;
-      parentRoute: typeof rootRouteImport;
-    };
-    "/calendar/": {
-      id: "/calendar/";
-      path: "/calendar";
-      fullPath: "/calendar/";
-      preLoaderRoute: typeof CalendarIndexRouteImport;
-      parentRoute: typeof rootRouteImport;
-    };
-    "/calendar/$month": {
-      id: "/calendar/$month";
-      path: "/calendar/$month";
-      fullPath: "/calendar/$month";
-      preLoaderRoute: typeof CalendarMonthRouteImport;
-      parentRoute: typeof rootRouteImport;
-    };
-    "/day/$date": {
-      id: "/day/$date";
-      path: "/day/$date";
-      fullPath: "/day/$date";
-      preLoaderRoute: typeof DayDateRouteImport;
-      parentRoute: typeof rootRouteImport;
-    };
+    '/': {
+      id: '/'
+      path: '/'
+      fullPath: '/'
+      preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/calendar/': {
+      id: '/calendar/'
+      path: '/calendar'
+      fullPath: '/calendar/'
+      preLoaderRoute: typeof CalendarIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/calendar/$month': {
+      id: '/calendar/$month'
+      path: '/calendar/$month'
+      fullPath: '/calendar/$month'
+      preLoaderRoute: typeof CalendarMonthRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/day/$date': {
+      id: '/day/$date'
+      path: '/day/$date'
+      fullPath: '/day/$date'
+      preLoaderRoute: typeof DayDateRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -107,16 +107,16 @@ const rootRouteChildren: RootRouteChildren = {
   CalendarMonthRoute: CalendarMonthRoute,
   DayDateRoute: DayDateRoute,
   CalendarIndexRoute: CalendarIndexRoute,
-};
+}
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
-  ._addFileTypes<FileRouteTypes>();
+  ._addFileTypes<FileRouteTypes>()
 
-import type { getRouter } from "./router.tsx";
-import type { createStart } from "@tanstack/react-start";
-declare module "@tanstack/react-start" {
+import type { getRouter } from './router.tsx'
+import type { createStart } from '@tanstack/react-start'
+declare module '@tanstack/react-start' {
   interface Register {
-    ssr: true;
-    router: Awaited<ReturnType<typeof getRouter>>;
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
   }
 }

@@ -1,4 +1,31 @@
-Welcome to your new TanStack Start app!
+# Moon Phases
+
+A lunar calendar web app built with TanStack Start — a recreation of the Drupal [Moon Phases](https://www.drupal.org/project/moon_phases) module. Shows the moon phase for any day, a month calendar of phases, and a compact "current phase" block.
+
+## Routes
+
+| Path               | Page                                                                              |
+| ------------------ | --------------------------------------------------------------------------------- |
+| `/`                | Today's moon phase (resolved in the visitor's timezone)                           |
+| `/day/$date`       | Phase for a specific day (`YYYY-MM-DD`); invalid dates redirect to `/`            |
+| `/calendar`        | Current month's phase calendar                                                    |
+| `/calendar/$month` | Calendar for a specific month (`YYYY-MM`); invalid months redirect to `/calendar` |
+
+Each calendar day links to its day page. Day pages include the phase image, an EarthSky.org description, illumination %, days until the next New/First Quarter/Full/Last Quarter moon, and previous/next day navigation. The footer block shows today's phase with a quick summary.
+
+## Configuration
+
+Phase descriptions and the NASA image attribution flag live in [`src/config/moon.ts`](src/config/moon.ts) — edit the HTML strings there and commit the change. `SHOW_ATTRIBUTION` toggles the "Images courtesy of NASA's Scientific Visualization Studio" credit.
+
+Phase calculation is a direct port of the Drupal module's algorithm ([`src/lib/moonCalc.ts`](src/lib/moonCalc.ts)): a 29.53058867-day lunation measured from the 2008-12-12 16:37 UTC full moon, with the original module's phase thresholds. The 100 phase images (`public/images/moon.00.png`–`moon.99.png`) are from NASA's Scientific Visualization Studio.
+
+## Development
+
+```bash
+vp test          # run unit tests (moonCalc + date helpers)
+vp check         # format, lint, and type check
+pnpm run generate-routes  # regenerate the route tree after adding routes
+```
 
 # Getting Started
 

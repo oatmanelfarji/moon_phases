@@ -1,8 +1,11 @@
-import { HeadContent, Scripts, createRootRouteWithContext } from "@tanstack/react-router";
+import { HeadContent, Link, Scripts, createRootRouteWithContext } from "@tanstack/react-router";
 import { TanStackRouterDevtoolsPanel } from "@tanstack/react-router-devtools";
 import { TanStackDevtools } from "@tanstack/react-devtools";
 
 import TanStackQueryDevtools from "../integrations/tanstack-query/devtools";
+
+import { MoonBlock } from "#/components/moon-block.tsx";
+import { getVisitorToday } from "#/lib/dates.ts";
 
 import appCss from "../styles.css?url";
 
@@ -13,6 +16,7 @@ interface MyRouterContext {
 }
 
 export const Route = createRootRouteWithContext<MyRouterContext>()({
+  loader: () => ({ ssrToday: getVisitorToday() }),
   head: () => ({
     meta: [
       {
@@ -23,7 +27,7 @@ export const Route = createRootRouteWithContext<MyRouterContext>()({
         content: "width=device-width, initial-scale=1",
       },
       {
-        title: "TanStack Start Starter",
+        title: "Moon Phases",
       },
     ],
     links: [
@@ -37,13 +41,41 @@ export const Route = createRootRouteWithContext<MyRouterContext>()({
 });
 
 function RootDocument({ children }: { children: React.ReactNode }) {
+  const { ssrToday } = Route.useLoaderData();
+
   return (
     <html lang="en">
       <head>
         <HeadContent />
       </head>
       <body>
-        {children}
+        <div className="page-wrap flex min-h-screen flex-col py-6">
+          <header className="mb-8 flex items-center justify-between">
+            <Link to="/" className="display-title text-2xl no-underline">
+              Moon Phases
+            </Link>
+            <nav className="flex gap-6 text-lg">
+              <Link to="/" activeProps={{ className: "is-active" }} className="nav-link">
+                Today
+              </Link>
+              <Link
+                to="/calendar"
+                activeOptions={{ exact: false }}
+                activeProps={{ className: "is-active" }}
+                className="nav-link"
+              >
+                Calendar
+              </Link>
+            </nav>
+          </header>
+
+          <main className="flex-1">{children}</main>
+
+          <footer className="site-footer mt-10 pt-6">
+            <MoonBlock ssrToday={ssrToday} />
+          </footer>
+        </div>
+
         <TanStackDevtools
           config={{
             position: "bottom-right",
