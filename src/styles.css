@@ -4,7 +4,7 @@
 
 @import "tw-animate-css";
 
-@custom-variant dark (&:is(.dark *));
+@custom-variant dark (&:where([data-mode="dark"], [data-mode="dark"] *));
 
 :root {
   --sea-ink: #173a40;
@@ -62,7 +62,7 @@
   --sidebar-ring: oklch(0.871 0.006 286.286);
 }
 
-.dark {
+[data-mode="dark"] {
   --sea-ink: #d7ece8;
   --sea-ink-soft: #afcdc8;
   --lagoon: #60d7cf;
@@ -356,4 +356,25 @@ a {
     background-color: var(--background);
     color: var(--foreground);
   }
+}
+
+html,
+html * {
+  transition:
+    background-color 200ms ease,
+    color 200ms ease,
+    border-color 200ms ease,
+    fill 200ms ease,
+    stroke 200ms ease;
+}
+
+html.theme-transitioning * {
+  transition: none;
+}
+
+html {
+  color-scheme: light;
+}
+html[data-mode="dark"] {
+  color-scheme: dark;
 }
